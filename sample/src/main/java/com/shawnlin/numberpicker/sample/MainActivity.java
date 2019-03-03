@@ -4,14 +4,11 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
-import com.shawnlin.numberpicker.NumberPicker;
-
-import java.util.Locale;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import com.shawnlin.numberpicker.NumberPicker;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
         // Set selected text color
         numberPicker.setSelectedTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
         numberPicker.setSelectedTextColorResource(R.color.colorPrimary);
+
+        // Set locale
+        numberPicker.setLocale(new Locale("ar")); //comment this line to show the picker in english
 
         // Set selected text size
         numberPicker.setSelectedTextSize(getResources().getDimension(R.dimen.selected_text_size));

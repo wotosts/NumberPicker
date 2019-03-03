@@ -177,9 +177,11 @@ public class NumberPicker extends LinearLayout {
 
         final Object[] mArgs = new Object[1];
 
+        Locale mLocale;
+
         TwoDigitFormatter() {
-            final Locale locale = Locale.getDefault();
-            init(locale);
+            mLocale = Locale.getDefault();
+            init(mLocale);
         }
 
         private void init(Locale locale) {
@@ -188,7 +190,11 @@ public class NumberPicker extends LinearLayout {
         }
 
         public String format(int value) {
-            final Locale currentLocale = Locale.getDefault();
+            Locale currentLocale = Locale.getDefault();
+            // to force the locale value set by using setter method
+            if (!mLocale.equals(currentLocale)) {
+                currentLocale = mLocale;
+            }
             if (mZeroDigit != getZeroDigit(currentLocale)) {
                 init(currentLocale);
             }
@@ -201,6 +207,15 @@ public class NumberPicker extends LinearLayout {
         private static char getZeroDigit(Locale locale) {
             // return LocaleData.get(locale).zeroDigit;
             return new DecimalFormatSymbols(locale).getZeroDigit();
+        }
+
+        // to force the locale value set by using setter method
+        void setLocale(Locale locale) {
+            if (this.mLocale != null && mLocale.equals(locale)) {
+                return;
+            }
+            this.mLocale = locale;
+            init(mLocale);
         }
 
         private java.util.Formatter createFormatter(Locale locale) {
@@ -418,6 +433,11 @@ public class NumberPicker extends LinearLayout {
      * The {@link Scroller} responsible for adjusting the selector.
      */
     private final Scroller mAdjustScroller;
+
+    /**
+     * The {@link Locale} responsible for setting the locale.
+     */
+    private Locale mLocale;
 
     /**
      * The previous X coordinate while scrolling the selector.
@@ -699,6 +719,7 @@ public class NumberPicker extends LinearLayout {
         super(context, attrs);
         mContext = context;
         mNumberFormatter = NumberFormat.getInstance();
+        mLocale = Locale.getDefault();
 
         final TypedArray attributes = context.obtainStyledAttributes(attrs,
                 R.styleable.NumberPicker, defStyle, 0);
@@ -1360,6 +1381,18 @@ public class NumberPicker extends LinearLayout {
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mNumberFormatter = NumberFormat.getInstance();
+    }
+
+    /**
+     * Set locale other than default locale
+     */
+    public void setLocale(Locale locale) {
+        if (mLocale != null && mLocale.equals(locale)) {
+            return;
+        }
+        this.mLocale = locale;
+        sTwoDigitFormatter.setLocale(mLocale);
+        invalidate();
     }
 
     /**
@@ -2532,7 +2565,7 @@ public class NumberPicker extends LinearLayout {
         return new Formatter() {
             @Override
             public String format(int i) {
-                return String.format(Locale.getDefault(), formatter, i);
+                return String.format(mLocale, formatter, i);
             }
         };
     }
