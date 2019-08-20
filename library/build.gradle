@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
-apply plugin: "guru.stefma.bintrayrelease"
+//apply plugin: "guru.stefma.bintrayrelease"
+apply plugin: 'com.github.dcendents.android-maven'
+group = 'com.github.wotosts'
 
 android {
     compileSdkVersion 28
@@ -19,17 +21,17 @@ dependencies {
 }
 
 version = VERSION_NAME
-group = GROUP_ID
-androidArtifact {
-    artifactId = ARTIFACT_ID
-    license {
-        name = POM_LICENSE_NAME
-        url = POM_LICENSE_URL
-        distribution = POM_LICENSE_DIST
-    }
-}
-publish {
-    userOrg = POM_DEVELOPER_ID
-    desc = POM_DESCRIPTION
-    website = POM_URL
-}
+//group = GROUP_ID
+//androidArtifact {
+//    artifactId = ARTIFACT_ID
+//    license {
+//        name = POM_LICENSE_NAME
+//        url = POM_LICENSE_URL
+//        distribution = POM_LICENSE_DIST
+//    }
+//}
+//publish {
+//    userOrg = POM_DEVELOPER_ID
+//    desc = POM_DESCRIPTION
+//    website = POM_URL
+//}

@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.Type;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -293,6 +294,11 @@ public class NumberPicker extends LinearLayout {
      * Flag whether the selected text should underlined.
      */
     private boolean mSelectedTextUnderline;
+
+    /**
+     * Flag whether the selected text should bold
+     */
+    private boolean mSelectedTextBold;
 
     /**
      * The align of the text.
@@ -774,6 +780,8 @@ public class NumberPicker extends LinearLayout {
                 R.styleable.NumberPicker_np_selectedTextStrikeThru, mSelectedTextStrikeThru);
         mSelectedTextUnderline = attributes.getBoolean(
                 R.styleable.NumberPicker_np_selectedTextUnderline, mSelectedTextUnderline);
+        mSelectedTextBold = attributes.getBoolean(
+                R.styleable.NumberPicker_np_selectedTextBold, mSelectedTextBold);
         mTextAlign = attributes.getInt(R.styleable.NumberPicker_np_textAlign, mTextAlign);
         mTextColor = attributes.getColor(R.styleable.NumberPicker_np_textColor, mTextColor);
         mTextSize = attributes.getDimension(R.styleable.NumberPicker_np_textSize,
@@ -1785,12 +1793,15 @@ public class NumberPicker extends LinearLayout {
                 mSelectorWheelPaint.setColor(mSelectedTextColor);
                 mSelectorWheelPaint.setStrikeThruText(mSelectedTextStrikeThru);
                 mSelectorWheelPaint.setUnderlineText(mSelectedTextUnderline);
+                if(mSelectedTextBold)
+                    mSelectorWheelPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
             } else {
                 mSelectorWheelPaint.setTextAlign(Paint.Align.values()[mTextAlign]);
                 mSelectorWheelPaint.setTextSize(mTextSize);
                 mSelectorWheelPaint.setColor(mTextColor);
                 mSelectorWheelPaint.setStrikeThruText(mTextStrikeThru);
                 mSelectorWheelPaint.setUnderlineText(mTextUnderline);
+                mSelectorWheelPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
             }
 
             int selectorIndex = selectorIndices[isAscendingOrder()
@@ -2687,6 +2698,10 @@ public class NumberPicker extends LinearLayout {
         mSelectedTextUnderline = underlineText;
     }
 
+    public void setSelectedTextBold(boolean boldText) {
+        mSelectedTextBold = boldText;
+    }
+
     public void setTextAlign(@Align int align) {
         mTextAlign = align;
     }
@@ -2823,6 +2838,10 @@ public class NumberPicker extends LinearLayout {
 
     public boolean getSelectedTextUnderline() {
         return mSelectedTextUnderline;
+    }
+
+    public boolean getSelectedTextBold() {
+        return mSelectedTextBold;
     }
 
     public int getTextAlign() {

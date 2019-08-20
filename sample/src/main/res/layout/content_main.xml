@@ -32,11 +32,12 @@
         app:np_order="descending"
         app:np_orientation="horizontal"
         app:np_selectedTextColor="@color/colorAccent"
-        app:np_selectedTextSize="@dimen/selected_text_size"
+        app:np_selectedTextSize="30dp"
         app:np_textColor="@color/colorAccent"
         app:np_textSize="@dimen/text_size"
         app:np_typeface="@string/roboto_light"
         app:np_fadingEdgeEnabled="false"
-        app:np_wrapSelectorWheel="true" />
+        app:np_wrapSelectorWheel="true"
+        app:np_selectedTextBold="true"/>
 
 </LinearLayout>

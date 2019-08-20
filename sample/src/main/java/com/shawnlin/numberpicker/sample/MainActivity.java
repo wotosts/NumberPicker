@@ -34,9 +34,10 @@ public class MainActivity extends AppCompatActivity {
         // Set selected text color
         numberPicker.setSelectedTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
         numberPicker.setSelectedTextColorResource(R.color.colorPrimary);
+        numberPicker.setSelectedTextBold(true);
 
         // Set locale
-        numberPicker.setLocale(new Locale("ar")); //comment this line to show the picker in english
+        //numberPicker.setLocale(new Locale("ar")); //comment this line to show the picker in english
 
         // Set selected text size
         numberPicker.setSelectedTextSize(getResources().getDimension(R.dimen.selected_text_size));
